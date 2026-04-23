@@ -1,5 +1,5 @@
 #include<iostream>
-#include"linklist.h"
+#include"linklist.hpp"
 using namespace std;
 
 int main() {
@@ -14,6 +14,7 @@ int main() {
 
     numberList.removeBack();
     numberList.removeFront();
+    numberList.removeAtPos(4);
     numberList.show();
     cout<<"\n\n";
 

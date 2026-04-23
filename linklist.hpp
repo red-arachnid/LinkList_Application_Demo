@@ -1,5 +1,5 @@
 #include<iostream>
-#include"node.h"
+#include"node.hpp"
 using namespace std;
 
 template <typename T>
@@ -13,7 +13,7 @@ public:
     }
 
     void insertFront(T data) {
-        Node<T> *temp = new Node(data);
+        Node<T> *temp = new Node<T>(data);
         if (temp == nullptr){
             cout << "Insufficient Memory\n\n";
             return;
@@ -29,7 +29,7 @@ public:
     }
     
     void insertBack(T data) {
-        Node<T> *temp = new Node(data);
+        Node<T> *temp = new Node<T>(data);
         if (temp == nullptr){
             cout << "Insufficient Memory\n\n";
             return;
@@ -62,7 +62,7 @@ public:
             return;
         }
 
-        Node<T> *temp = new Node(data);
+        Node<T> *temp = new Node<T>(data);
         if (temp == nullptr) {
             cout << "Insufficient Memory\n\n";
             return;
@@ -75,18 +75,21 @@ public:
         Node<T> *temp = START;
 
         if (temp == nullptr){
-            cout<<"Link List is empty";
+            cout << "Link List is empty";
             return;
         }
 
         START = START->next;
-        delete(temp);
+        if (START == nullptr) {
+            END = nullptr;
+        }
+        delete temp;
     }
 
     void removeBack() {
         Node<T> *ptr = START;
         if (ptr == nullptr) {
-            cout<<"Link List is empty";
+            cout << "Link List is empty";
             return;
         }
 
@@ -102,18 +105,41 @@ public:
         END = ptr;
         ptr = ptr->next;
         END->next = nullptr;
-        delete(ptr);
+        delete ptr;
+    }
+
+    void removeAtPos(int pos) {
+        if (pos <= 0) {
+            removeFront();
+            return;
+        }
+
+        Node<T> *ptr = START;
+        int i = 0;
+        while (ptr != nullptr && i < pos-1){
+            ptr = ptr->next;
+            i++;
+        }
+
+        if (ptr == nullptr || ptr == END || ptr->next == END) {
+            removeBack();
+            return;
+        }
+
+        Node<T> *temp = ptr->next;
+        ptr->next = temp->next;
+        delete temp;
     }
 
     void show() {
         Node<T> *ptr = START;
         if (ptr == nullptr){
-            cout<<"List is empty\n\n";
+            cout << "List is empty\n\n";
             return;
         }
         else {
             while (ptr != nullptr){
-                cout<<ptr->data<<" -> ";
+                cout << ptr->data << " -> ";
                 ptr = ptr->next;
             }
             cout << "Null";
