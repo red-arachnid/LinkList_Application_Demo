@@ -45,40 +45,30 @@ public:
     }   
 
     void insertAtPos(T data, int pos) {
-        if (pos == 0){
+        if (pos <= 0){
             insertFront(data);
             return;
         }
-        else if (pos < 0) {
-            insertBack(data);
-            return;
-        } 
 
-        Node<T> *temp = new Node(data);
         Node<T> *ptr = START;
-        if (temp == nullptr) {
-            cout << "Insufficient Memory\n\n";
-            return;
-        }
-
-        if (ptr == nullptr) {
-            END = START = temp;
-            return;
-        }
-
         int i = 0;
-        while (ptr != nullptr){
-            if (i == pos-1){
-                temp->next = ptr->next;
-                ptr->next = temp;
-                return;
-            }
+        while (ptr != nullptr && i < pos-1){
             ptr = ptr->next;
             i++;
         }
 
-        END->next = temp;
-        END = temp;
+        if (ptr == nullptr || ptr == END){
+            insertBack(data);
+            return;
+        }
+
+        Node<T> *temp = new Node(data);
+        if (temp == nullptr) {
+            cout << "Insufficient Memory\n\n";
+            return;
+        }
+        temp->next = ptr->next;
+        ptr->next = temp;
     }
 
     void removeFront() {
@@ -111,8 +101,8 @@ public:
         }
         END = ptr;
         ptr = ptr->next;
-        delete(ptr);
         END->next = nullptr;
+        delete(ptr);
     }
 
     void show() {

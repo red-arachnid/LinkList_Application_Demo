@@ -12,6 +12,8 @@ int main() {
     numberList.show();
     cout<<"\n\n";
 
+    numberList.removeBack();
+    numberList.removeFront();
     numberList.show();
     cout<<"\n\n";
 
