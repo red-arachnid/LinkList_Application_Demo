@@ -1,6 +1,5 @@
-#include<iostream>
+#include<stdexcept>x
 #include"node.hpp"
-using namespace std;
 
 template <typename T>
 class LinkList {
@@ -15,7 +14,7 @@ public:
     void insertFront(T data) {
         Node<T> *temp = new Node<T>(data);
         if (temp == nullptr){
-            cout << "Insufficient Memory\n\n";
+            throw std::runtime_error("Insufficient Memory");
             return;
         }
 
@@ -31,7 +30,7 @@ public:
     void insertBack(T data) {
         Node<T> *temp = new Node<T>(data);
         if (temp == nullptr){
-            cout << "Insufficient Memory\n\n";
+            throw std::runtime_error("Insufficient Memory");
             return;
         }
 
@@ -64,7 +63,7 @@ public:
 
         Node<T> *temp = new Node<T>(data);
         if (temp == nullptr) {
-            cout << "Insufficient Memory\n\n";
+            throw std::runtime_error("Insufficient Memory");
             return;
         }
         temp->next = ptr->next;
@@ -75,7 +74,7 @@ public:
         Node<T> *temp = START;
 
         if (temp == nullptr){
-            cout << "Link List is empty";
+            throw std::runtime_error("Link List is empty");
             return;
         }
 
@@ -89,7 +88,7 @@ public:
     void removeBack() {
         Node<T> *ptr = START;
         if (ptr == nullptr) {
-            cout << "Link List is empty";
+            throw std::runtime_error("Link List is empty");
             return;
         }
 
@@ -108,7 +107,7 @@ public:
         delete ptr;
     }
 
-    void removeAtPos(int pos) {
+    void removeFromPos(int pos) {
         if (pos <= 0) {
             removeFront();
             return;
@@ -134,7 +133,7 @@ public:
     void show() {
         Node<T> *ptr = START;
         if (ptr == nullptr){
-            cout << "List is empty\n\n";
+            throw std::runtime_error("Link List is empty");
             return;
         }
         else {
