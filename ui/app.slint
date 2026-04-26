@@ -1,4 +1,4 @@
-import { Button, VerticalBox, LineEdit, HorizontalBox, ScrollView } from "std-widgets.slint";
+import { Button, VerticalBox, LineEdit, HorizontalBox, ScrollView, ComboBox } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
     title: "LinkList Manager";
@@ -27,7 +27,7 @@ export component AppWindow inherits Window {
             border-radius: 12px;
             border-width: 1px;
             border-color: #adadad;
-            height: 160px;
+            height: 210px;
 
             //Input Fields
             VerticalBox {
@@ -55,6 +55,22 @@ export component AppWindow inherits Window {
                     text: "Insert Node";
                     primary: true;
                     height: 35px;
+                }
+
+                HorizontalBox {
+                    spacing: 12px;
+                    Text {
+                        text: "Select Category: ";
+                        vertical-alignment: center;
+                    }
+                    ComboBox {
+                        model: [
+                            "Insert At Beginning",
+                            "Insert At End",
+                            "Insert At A Position"
+                        ];
+                        current-index: 0;
+                    }
                 }
             }
         }
