@@ -111,6 +111,55 @@ export component AppWindow inherits Window {
                             height: 100px;
                             drop-shadow-blur: 8px;
                             drop-shadow-color: rgba(0,0,0,0.1);
+
+                            VerticalBox {
+                                //Message
+                                HorizontalBox {
+                                    alignment: center;
+                                    height: (parent.height / 2.5);
+                                    Text {
+                                        text: node.message;
+                                        font-size: 12px;
+                                        color: #666;
+                                        overflow: elide;
+                                    }
+                                }
+
+                                //Node ID and Username
+                                HorizontalBox {
+                                    height: (parent.height / 2.5);
+
+                                    VerticalBox {
+                                        alignment: center;
+                                        
+                                        Rectangle {
+                                            background: #2c65eb;
+                                            border-radius: 4px;
+                                            width: 24px;
+                                            height: 24px;
+                                            Text {
+                                                text: node.id;
+                                                color: white;
+                                                font-family: 800;
+                                                font-size: 12px;
+                                                horizontal-alignment: center;
+                                                vertical-alignment: center;
+                                            }
+                                        }
+                                    }
+                                    VerticalBox {
+                                        alignment: center;
+                                        Text {
+                                            text: node.name;
+                                            font-size: 16px;
+                                            font-weight: 600;
+                                            color: #333;
+                                            vertical-alignment: center;
+                                        }
+                                    }
+                                }
+                                
+                            }
                         }
                     }
                 }
