@@ -114,6 +114,7 @@ export component AppWindow inherits Window {
     VerticalBox {
         padding: 24px;
         spacing: 20px;
+        alignment: start;
 
         // Header
         Text {
@@ -123,7 +124,7 @@ export component AppWindow inherits Window {
             color: #1a1a1a;
             horizontal-alignment: center;
         }
-
+        
         //Insert Node Section
         Rectangle {
             background: white;
@@ -145,7 +146,7 @@ export component AppWindow inherits Window {
                 HorizontalBox {
                     spacing: 12px;
                     LineEdit {
-                        placeholder-text: "UserName";
+                        placeholder-text: "Username";
                         font-size: 14px;
                     }
                     LineEdit {
@@ -194,7 +195,7 @@ export component AppWindow inherits Window {
             border-radius: 12px;
             border-width: 1px;
             border-color: #adadad;
-            height: 132px; 
+            height: 140px; 
             clip: true;
 
             ScrollView {
@@ -233,5 +234,23 @@ export component AppWindow inherits Window {
                 }
             }
         }
+
+        HorizontalBox {
+            CustomButton {
+                text: "Remove Node From Beginning";
+                height: 40px;
+                base-color: #ff3d3d;
+                hover-color: #ff2d2d;
+                click-color: #ff0000;
+            }
+            CustomButton {
+                text: "Remove Node From End";
+                height: 40px;
+                base-color: #ff3d3d;
+                hover-color: #ff2d2d;
+                click-color: #ff0000;
+            }
+        }
+
     }
 }
