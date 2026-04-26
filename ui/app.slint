@@ -1,4 +1,4 @@
-import { Button, VerticalBox, LineEdit, HorizontalBox, ScrollView, ComboBox } from "std-widgets.slint";
+import { Button, VerticalBox, LineEdit, HorizontalBox, ScrollView, ComboBox, SpinBox } from "std-widgets.slint";
 
 export struct Data {
     id: int,
@@ -104,6 +104,10 @@ export component AppWindow inherits Window {
         { id: 1, name: "User1", message: "Yo" },
         { id: 2, name: "User2", message: "Hello" },
         { id: 3, name: "User1", message: "Hello User 2" },
+        { id: 3, name: "User1", message: "Hello User 2" },
+        { id: 3, name: "User1", message: "Hello User 2" },
+        { id: 3, name: "User1", message: "Hello User 2" },
+        { id: 3, name: "User1", message: "Hello User 2" },
     ];
     
     //Main Box
@@ -162,7 +166,7 @@ export component AppWindow inherits Window {
                         text: "Select Category: ";
                         vertical-alignment: center;
                     }
-                    ComboBox {
+                    insertOption := ComboBox {
                         model: [
                             "Insert At Beginning",
                             "Insert At End",
@@ -170,6 +174,17 @@ export component AppWindow inherits Window {
                         ];
                         current-index: 0;
                     }
+                    if (insertOption.current-index == 2) : HorizontalBox {
+                        Text {
+                            text: "Position: ";
+                            vertical-alignment: center;
+                        }
+                        SpinBox {
+                            value: 0;
+                            minimum: 0;
+                        }
+                    }
+                    
                 }
             }
         }
@@ -180,6 +195,7 @@ export component AppWindow inherits Window {
             border-width: 1px;
             border-color: #adadad;
             height: 132px; 
+            clip: true;
 
             ScrollView {
                 HorizontalBox {
@@ -188,17 +204,34 @@ export component AppWindow inherits Window {
 
                     for node[i] in root.nodes : HorizontalBox {
                         spacing: 0;
+                        padding: 0;
                         alignment: center;
-
-                        Node {
-                            id: node.id;
-                            name: node.name;
-                            message: node.message;
+                        VerticalBox {
+                            alignment: center;
+                            padding: 0;
+                            Node {
+                                id: node.id;
+                                name: node.name;
+                                message: node.message;
+                            }
+                        }
+                        if (i < root.nodes.length - 1) : Rectangle {
+                            Text {
+                                text: "→";
+                                font-size: 20px;
+                                font-weight: 800;
+                            }
+                        }
+                    }
+                    if (root.nodes.length > 0) : Rectangle{
+                        Text {
+                            text: "→NULL";
+                            font-size: 20px;
+                            font-weight: 800;
                         }
                     }
                 }
             }
         }
-
     }
 }
