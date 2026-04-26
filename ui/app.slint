@@ -6,6 +6,94 @@ export struct Data {
     message: string,
 }
 
+export component CustomButton inherits Rectangle {
+    in property <string> text;
+    in property <color> base-color;
+    in property <color> hover-color;
+    in property <color> click-color;
+    callback clicked;
+
+    background: touch.pressed ? root.click-color : touch.has-hover ? root.hover-color : root.base-color;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: black;
+
+    Text { 
+        text: root.text; 
+        color: white; 
+        font-weight: 800;
+    }
+    touch := TouchArea { clicked => { clicked() } }
+}
+
+export component Node inherits Rectangle {
+    in property <int> id;
+    in property <string> name;
+    in property <string> message;
+
+
+    background: white;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #adadad;
+    width: 200px;
+    height: 100px;
+    drop-shadow-blur: 8px;
+    drop-shadow-color: rgba(0,0,0,0.1);
+
+
+    VerticalBox {
+        padding: 8px;
+        spacing: 0px;
+        Rectangle {
+            HorizontalBox {
+                Text {
+                    text: message;
+                    font-size: 12px;
+                    color: #666;
+                    overflow: elide;
+                }
+            }
+        }
+        Rectangle {
+            HorizontalBox {
+
+                Rectangle {
+                    background: #1653e2;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 8px;
+                    Text {
+                        text: id;
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: white;
+                    }
+                }
+
+                HorizontalBox {
+                    Text {
+                        text: name;
+                        font-size: 12px;
+                        font-weight: 800;
+                        color: #333;
+                    }
+                }
+
+                CustomButton {
+                    width: 30px;
+                    height: 30px;
+                    text: "X";
+                    
+                    base-color: #ff3d3d;
+                    hover-color: #ff2d2d;
+                    click-color: #ff0000;
+                }
+            }
+        }
+    }
+}
+
 export component AppWindow inherits Window {
     title: "LinkList Manager";
     min-width: 1280px;
@@ -102,64 +190,10 @@ export component AppWindow inherits Window {
                         spacing: 0;
                         alignment: center;
 
-                        Rectangle {
-                            background: white;
-                            border-radius: 10px;
-                            border-width: 1px;
-                            border-color: #adadad;
-                            width: 200px;
-                            height: 100px;
-                            drop-shadow-blur: 8px;
-                            drop-shadow-color: rgba(0,0,0,0.1);
-
-                            VerticalBox {
-                                //Message
-                                HorizontalBox {
-                                    alignment: center;
-                                    height: (parent.height / 2.5);
-                                    Text {
-                                        text: node.message;
-                                        font-size: 12px;
-                                        color: #666;
-                                        overflow: elide;
-                                    }
-                                }
-
-                                //Node ID and Username
-                                HorizontalBox {
-                                    height: (parent.height / 2.5);
-
-                                    VerticalBox {
-                                        alignment: center;
-                                        
-                                        Rectangle {
-                                            background: #2c65eb;
-                                            border-radius: 4px;
-                                            width: 24px;
-                                            height: 24px;
-                                            Text {
-                                                text: node.id;
-                                                color: white;
-                                                font-family: 800;
-                                                font-size: 12px;
-                                                horizontal-alignment: center;
-                                                vertical-alignment: center;
-                                            }
-                                        }
-                                    }
-                                    VerticalBox {
-                                        alignment: center;
-                                        Text {
-                                            text: node.name;
-                                            font-size: 16px;
-                                            font-weight: 600;
-                                            color: #333;
-                                            vertical-alignment: center;
-                                        }
-                                    }
-                                }
-                                
-                            }
+                        Node {
+                            id: node.id;
+                            name: node.name;
+                            message: node.message;
                         }
                     }
                 }
