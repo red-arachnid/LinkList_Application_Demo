@@ -21,5 +21,43 @@ export component AppWindow inherits Window {
             horizontal-alignment: center;
         }
 
+        //Insert Node Section
+        Rectangle {
+            background: white;
+            border-radius: 12px;
+            border-width: 1px;
+            border-color: #adadad;
+            height: 160px;
+
+            //Input Fields
+            VerticalBox {
+                Text {
+                    text: "Insert New Node";
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #333;
+                    horizontal-alignment: center;
+                }
+
+                HorizontalBox {
+                    spacing: 12px;
+                    LineEdit {
+                        placeholder-text: "UserName";
+                        font-size: 14px;
+                    }
+                    LineEdit {
+                        placeholder-text: "Message";
+                        font-size: 14px;
+                    }
+                }
+
+                Button {
+                    text: "Insert Node";
+                    primary: true;
+                    height: 35px;
+                }
+            }
+        }
+
     }
 }
