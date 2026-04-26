@@ -1,11 +1,22 @@
 import { Button, VerticalBox, LineEdit, HorizontalBox, ScrollView, ComboBox } from "std-widgets.slint";
 
+export struct Data {
+    id: int,
+    name: string,
+    message: string,
+}
+
 export component AppWindow inherits Window {
     title: "LinkList Manager";
     min-width: 1280px;
     min-height: 720px;
     background: #f8f9fa;
 
+    property <[Data]> nodes: [
+        { id: 1, name: "User1", message: "Yo" },
+        { id: 2, name: "User2", message: "Hello" },
+        { id: 3, name: "User1", message: "Hello User 2" },
+    ];
     
     //Main Box
     VerticalBox {
@@ -70,6 +81,37 @@ export component AppWindow inherits Window {
                             "Insert At A Position"
                         ];
                         current-index: 0;
+                    }
+                }
+            }
+        }
+
+        Rectangle {
+            background: white;
+            border-radius: 12px;
+            border-width: 1px;
+            border-color: #adadad;
+            height: 132px; 
+
+            ScrollView {
+                HorizontalBox {
+                    alignment: start;
+                    spacing: 0;
+
+                    for node[i] in root.nodes : HorizontalBox {
+                        spacing: 0;
+                        alignment: center;
+
+                        Rectangle {
+                            background: white;
+                            border-radius: 10px;
+                            border-width: 1px;
+                            border-color: #adadad;
+                            width: 200px;
+                            height: 100px;
+                            drop-shadow-blur: 8px;
+                            drop-shadow-color: rgba(0,0,0,0.1);
+                        }
                     }
                 }
             }
