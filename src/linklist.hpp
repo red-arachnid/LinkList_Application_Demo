@@ -1,4 +1,4 @@
-#include<stdexcept>x
+#include<stdexcept>
 #include"node.hpp"
 
 template <typename T>
@@ -128,20 +128,5 @@ public:
         Node<T> *temp = ptr->next;
         ptr->next = temp->next;
         delete temp;
-    }
-
-    void show() {
-        Node<T> *ptr = START;
-        if (ptr == nullptr){
-            throw std::runtime_error("Link List is empty");
-            return;
-        }
-        else {
-            while (ptr != nullptr){
-                cout << ptr->data << " -> ";
-                ptr = ptr->next;
-            }
-            cout << "Null";
-        }
     }
 };

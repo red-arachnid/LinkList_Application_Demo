@@ -1,0 +1,25 @@
+import { Button, VerticalBox, LineEdit, HorizontalBox, ScrollView } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    title: "LinkList Manager";
+    min-width: 1280px;
+    min-height: 720px;
+    background: #f8f9fa;
+
+    
+    //Main Box
+    VerticalBox {
+        padding: 24px;
+        spacing: 20px;
+
+        // Header
+        Text {
+            text: "Linked List Manager";
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a1a;
+            horizontal-alignment: center;
+        }
+
+    }
+}
