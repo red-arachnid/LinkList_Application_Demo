@@ -48,15 +48,15 @@ public:
         nodeCount++;
     }   
 
-    void insertAtPos(T data, int pos) {
-        if (pos <= 0){
+    void insertAtIndex(T data, size_t index) {
+        if (index <= 0){
             insertFront(data);
             return;
         }
 
         Node<T> *ptr = START;
         int i = 0;
-        while (ptr != nullptr && i < pos-1){
+        while (ptr != nullptr && i < index-1){
             ptr = ptr->next;
             i++;
         }
@@ -116,6 +116,7 @@ public:
         nodeCount--;
     }
 
+    //! MIGHT Need some changes here cause the nodes are more of id depeneded
     void removeFromPos(int pos) {
         if (pos <= 0) {
             removeFront();

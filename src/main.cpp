@@ -69,7 +69,7 @@ int main() {
         }
 
         data.id = ++idCounter;
-        list.insertAtPos(data, pos);
+        list.insertAtIndex(data, pos);
 
         int actualIndex;
         if (pos <= 0) {
