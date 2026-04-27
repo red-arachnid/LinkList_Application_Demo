@@ -59,15 +59,17 @@ export component Node inherits Rectangle {
             HorizontalBox {
 
                 Rectangle {
-                    background: #1653e2;
+                    background: transparent;
                     width: 30px;
                     height: 30px;
                     border-radius: 8px;
+                    border-width: 1px;
+                    border-color: #333;
                     Text {
                         text: id;
                         font-size: 12px;
                         font-weight: 600;
-                        color: white;
+                        color: #333;
                     }
                 }
 
@@ -100,15 +102,9 @@ export component AppWindow inherits Window {
     min-height: 720px;
     background: #f8f9fa;
 
-    property <[Data]> nodes: [
-        { id: 1, name: "User1", message: "Yo" },
-        { id: 2, name: "User2", message: "Hello" },
-        { id: 3, name: "User1", message: "Hello User 2" },
-        { id: 3, name: "User1", message: "Hello User 2" },
-        { id: 3, name: "User1", message: "Hello User 2" },
-        { id: 3, name: "User1", message: "Hello User 2" },
-        { id: 3, name: "User1", message: "Hello User 2" },
-    ];
+    in-out property <int> counter;
+    property <[Data]> nodes: [];
+    callback test();
     
     //Main Box
     VerticalBox {
@@ -118,7 +114,7 @@ export component AppWindow inherits Window {
 
         // Header
         Text {
-            text: "Linked List Manager";
+            text: "Linked List Manager " + counter;
             font-size: 24px;
             font-weight: 800;
             color: #1a1a1a;
@@ -145,11 +141,11 @@ export component AppWindow inherits Window {
 
                 HorizontalBox {
                     spacing: 12px;
-                    LineEdit {
+                    usernameField := LineEdit {
                         placeholder-text: "Username";
                         font-size: 14px;
                     }
-                    LineEdit {
+                    messageField := LineEdit {
                         placeholder-text: "Message";
                         font-size: 14px;
                     }
@@ -159,6 +155,12 @@ export component AppWindow inherits Window {
                     text: "Insert Node";
                     primary: true;
                     height: 35px;
+
+                    clicked => {
+                        usernameField.text = "";
+                        messageField.text = "";
+                        test();
+                    }
                 }
 
                 HorizontalBox {
