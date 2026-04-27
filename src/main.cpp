@@ -17,7 +17,26 @@ int main() {
 
         data.id = ++idCounter;
         list.insertFront(data);
-        list.show();
+    });
+
+    app->on_insert_back([&](Data data) {
+        if (data.name == "" || data.message == ""){
+            //! Show a Error here too
+            return;
+        }
+
+        data.id == ++idCounter;
+        list.insertBack(data);
+    });
+
+    app->on_insert_at_pos([&](Data data, int pos) {
+        if (data.name == "" || data.message == ""){
+            //! Show A Error
+            return;
+        }
+
+        data.id = ++idCounter;
+        list.insertAtPos(data, pos);
     });
 
     app->run();
