@@ -1,10 +1,32 @@
 #include"linklist.hpp"
-#include<iostream>
 #include"app.h"
+#include<slint.h>
+#include<iostream>
 
+class LinkListModel : public slint::Model<Data> {
+    LinkList<Data>& modelList;
+
+    public:
+    LinkListModel(LinkList<Data>& list) : modelList(list) {}
+
+    size_t row_count() const override {
+        //!Override this function to return the total number of nodes from linklist
+        return 0;
+    }
+
+    std::optional<Data> row_data(size_t i) const override {
+        //!Return a node by index (Implement a getByPosition function in linklist)
+        return {};
+    }
+
+
+};
+
+//! Make The ID Counter Such That ID = Position of Block
 int main() {
 
     LinkList<Data> list;
+    auto model = std::make_shared<LinkListModel>(list);
     int idCounter = 0;
 
     auto app = AppWindow::create();
