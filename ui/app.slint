@@ -157,6 +157,7 @@ export component AppWindow inherits Window {
                     text: "Insert Node";
                     primary: true;
                     height: 35px;
+                    enabled: !usernameField.text.is-empty && !messageField.text.is-empty;
 
                     clicked => {
                         if (insertOption.current-index == 0){
@@ -177,6 +178,9 @@ export component AppWindow inherits Window {
                                 message: messageField.text
                             }, insertPos);
                         }
+
+                        usernameField.text = "";
+                        messageField.text = "";
                     }
                 }
 

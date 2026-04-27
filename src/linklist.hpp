@@ -11,6 +11,7 @@ public:
     LinkList() {
         START = nullptr;
         END = nullptr;
+        nodeCount = 0;
     }
 
     void insertFront(T data) {

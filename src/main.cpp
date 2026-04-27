@@ -14,8 +14,18 @@ class LinkListModel : public slint::Model<Data> {
     }
 
     std::optional<Data> row_data(size_t index) const override {
-        if (index > modelList.size()) return {};
+        if (index >= modelList.size()) return {};
         return modelList.get(index);
+    }
+
+    void notify_inserted(size_t index) {
+        this->notify_row_added(index, 1);
+    }
+    void notify_removed(size_t index) {
+        this->notify_row_removed(index, 1);
+    }
+    void notify_all_reset() {
+        this->notify_reset();
     }
 };
 
@@ -38,6 +48,7 @@ int main() {
 
         data.id = ++idCounter;
         list.insertFront(data);
+        nodes->notify_inserted(0);
     });
 
     app->on_insert_back([&](Data data) {
@@ -48,6 +59,7 @@ int main() {
 
         data.id == ++idCounter;
         list.insertBack(data);
+        nodes->notify_inserted(list.size() - 1);
     });
 
     app->on_insert_at_pos([&](Data data, int pos) {
@@ -58,6 +70,18 @@ int main() {
 
         data.id = ++idCounter;
         list.insertAtPos(data, pos);
+
+        int actualIndex;
+        if (pos <= 0) {
+            actualIndex = 0;
+        }
+        else if (pos >= list.size()){
+            actualIndex = list.size() - 1;
+        }
+        else {
+            actualIndex = pos;
+        }
+        nodes->notify_inserted(actualIndex);
     });
 
     app->run();
