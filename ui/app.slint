@@ -102,7 +102,7 @@ export component AppWindow inherits Window {
     background: #f8f9fa;
 
     property <int> insertPos;
-    property <[Data]> nodes: [];
+    in property <[Data]> nodes;
 
     callback insert_front(Data);
     callback insert_back(Data);

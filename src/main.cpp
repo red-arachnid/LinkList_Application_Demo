@@ -10,26 +10,25 @@ class LinkListModel : public slint::Model<Data> {
     LinkListModel(LinkList<Data>& list) : modelList(list) {}
 
     size_t row_count() const override {
-        //!Override this function to return the total number of nodes from linklist
-        return 0;
+        return modelList.size();
     }
 
-    std::optional<Data> row_data(size_t i) const override {
-        //!Return a node by index (Implement a getByPosition function in linklist)
-        return {};
+    std::optional<Data> row_data(size_t index) const override {
+        if (index > modelList.size()) return {};
+        return modelList.get(index);
     }
-
-
 };
 
 //! Make The ID Counter Such That ID = Position of Block
 int main() {
 
     LinkList<Data> list;
-    auto model = std::make_shared<LinkListModel>(list);
+    auto nodes = std::make_shared<LinkListModel>(list);
     int idCounter = 0;
 
     auto app = AppWindow::create();
+
+    app->set_nodes(nodes);
 
     app->on_insert_front([&](Data data) {
         if (data.name == "" || data.message == ""){

@@ -5,6 +5,7 @@
 template <typename T>
 class LinkList {
     Node<T> *START, *END;
+    size_t nodeCount;
 
 public:
     LinkList() {
@@ -26,6 +27,7 @@ public:
             temp->next = START;
             START = temp;
         }
+        nodeCount++;
     }
     
     void insertBack(T data) {
@@ -42,6 +44,7 @@ public:
             END->next = temp;
             END = temp;
         }
+        nodeCount++;
     }   
 
     void insertAtPos(T data, int pos) {
@@ -69,6 +72,7 @@ public:
         }
         temp->next = ptr->next;
         ptr->next = temp;
+        nodeCount++;
     }
 
     void removeFront() {
@@ -84,6 +88,7 @@ public:
             END = nullptr;
         }
         delete temp;
+        nodeCount--;
     }
 
     void removeBack() {
@@ -96,6 +101,7 @@ public:
         if (ptr == END){
             START = END = nullptr;
             delete(ptr);
+            nodeCount--;
             return;
         }
 
@@ -106,6 +112,7 @@ public:
         ptr = ptr->next;
         END->next = nullptr;
         delete ptr;
+        nodeCount--;
     }
 
     void removeFromPos(int pos) {
@@ -129,15 +136,27 @@ public:
         Node<T> *temp = ptr->next;
         ptr->next = temp->next;
         delete temp;
+        nodeCount--;
     }
 
-    void show(){
-        Node<T> *temp = START;
-        int number = 0;
-        while (temp != nullptr) {
-            number++;
-            temp = temp->next;
+    size_t size(){
+        return nodeCount;
+    }
+
+    T get(size_t index) {
+        if (index > nodeCount) 
+            return END->data;
+
+        if (index <= 0) 
+            return START->data;
+
+        Node<T> *ptr = START;
+        int i = 0;
+
+        while (ptr != nullptr && i < index) {
+            ptr = ptr->next;
+            i++;
         }
-        std::cout<<number<<std::endl;
+        return ptr->data;
     }
 };
