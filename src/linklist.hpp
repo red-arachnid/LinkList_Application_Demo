@@ -1,4 +1,5 @@
 #include<stdexcept>
+#include<iostream>
 #include"node.hpp"
 
 template <typename T>
@@ -128,5 +129,15 @@ public:
         Node<T> *temp = ptr->next;
         ptr->next = temp->next;
         delete temp;
+    }
+
+    void show(){
+        Node<T> *temp = START;
+        int number = 0;
+        while (temp != nullptr) {
+            number++;
+            temp = temp->next;
+        }
+        std::cout<<number<<std::endl;
     }
 };

@@ -31,7 +31,6 @@ export component Node inherits Rectangle {
     in property <string> name;
     in property <string> message;
 
-
     background: white;
     border-radius: 10px;
     border-width: 1px;
@@ -102,9 +101,12 @@ export component AppWindow inherits Window {
     min-height: 720px;
     background: #f8f9fa;
 
-    in-out property <int> counter;
+    property <int> insertPos;
     property <[Data]> nodes: [];
-    callback test();
+
+    callback insert_front(Data);
+    callback insert_back(Data);
+    callback insert_at_pos(Data, int);
     
     //Main Box
     VerticalBox {
@@ -114,7 +116,7 @@ export component AppWindow inherits Window {
 
         // Header
         Text {
-            text: "Linked List Manager " + counter;
+            text: "Linked List Manager";
             font-size: 24px;
             font-weight: 800;
             color: #1a1a1a;
@@ -157,9 +159,24 @@ export component AppWindow inherits Window {
                     height: 35px;
 
                     clicked => {
-                        usernameField.text = "";
-                        messageField.text = "";
-                        test();
+                        if (insertOption.current-index == 0){
+                            insert_front({
+                                name: usernameField.text,
+                                message: messageField.text
+                            });
+                        }
+                        else if (insertOption.current-index == 1){
+                            insert_back({
+                                name: usernameField.text,
+                                message: messageField.text
+                            });
+                        }
+                        else if (insertOption.current-index == 2){
+                            insert_at_pos({
+                                name: usernameField.text,
+                                message: messageField.text
+                            }, insertPos);
+                        }
                     }
                 }
 
@@ -182,9 +199,13 @@ export component AppWindow inherits Window {
                             text: "Position: ";
                             vertical-alignment: center;
                         }
-                        SpinBox {
+                        insertPosition := SpinBox {
                             value: 0;
                             minimum: 0;
+
+                            edited(value) => {
+                                insertPos = value;
+                            }
                         }
                     }
                     
