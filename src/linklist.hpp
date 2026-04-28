@@ -1,5 +1,4 @@
 #include<stdexcept>
-#include<iostream>
 #include"node.hpp"
 
 template <typename T>

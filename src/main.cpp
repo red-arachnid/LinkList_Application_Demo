@@ -1,7 +1,6 @@
-#include"linklist.hpp"
-#include"app.h"
 #include<slint.h>
-#include<iostream>
+#include"app.h"
+#include"linklist.hpp"
 
 class LinkListModel : public slint::Model<Data> {
     LinkList<Data>& modelList;
@@ -29,7 +28,6 @@ class LinkListModel : public slint::Model<Data> {
     }
 };
 
-//! Make The ID Counter Such That ID = Position of Block
 int main() {
 
     LinkList<Data> list;
