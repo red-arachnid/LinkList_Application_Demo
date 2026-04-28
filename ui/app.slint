@@ -30,6 +30,7 @@ export component Node inherits Rectangle {
     in property <int> id;
     in property <string> name;
     in property <string> message;
+    callback delete();
 
     background: white;
     border-radius: 10px;
@@ -89,6 +90,10 @@ export component Node inherits Rectangle {
                     base-color: #ff3d3d;
                     hover-color: #ff2d2d;
                     click-color: #ff0000;
+
+                    clicked => {
+                        delete();
+                    }
                 }
             }
         }
@@ -109,6 +114,7 @@ export component AppWindow inherits Window {
     callback insert_at_pos(Data, int);
     callback remove_front();
     callback remove_back();
+    callback remove_from_pos(int);
     
     //Main Box
     VerticalBox {
@@ -244,6 +250,9 @@ export component AppWindow inherits Window {
                                 id: node.id;
                                 name: node.name;
                                 message: node.message;
+                                delete => {
+                                    remove_from_pos(i);
+                                }
                             }
                         }
                         if (i < root.nodes.length - 1) : Rectangle {

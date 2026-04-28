@@ -78,10 +78,26 @@ int main() {
 
     app->on_remove_back([&]() {
         if (list.size() > 0) {
-            size_t index_to_remove = list.size() - 1;
+            size_t index = list.size() - 1;
             list.removeBack();
-            nodes->notify_removed(index_to_remove);
+            nodes->notify_removed(index);
         }
+    });
+
+    app->on_remove_from_pos([&](int pos) {
+        list.removeFromPos(pos);
+
+        int actualIndex;
+        if (pos <= 0) {
+            actualIndex = 0;
+        }
+        else if (pos >= list.size()){
+            actualIndex = list.size() - 1;
+        }
+        else {
+            actualIndex = pos;
+        }
+        nodes->notify_removed(actualIndex);
     });
 
     app->run();
