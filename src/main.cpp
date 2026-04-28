@@ -41,33 +41,18 @@ int main() {
     app->set_nodes(nodes);
 
     app->on_insert_front([&](Data data) {
-        if (data.name == "" || data.message == ""){
-            //! Show a Error Dialog box here somehow
-            return;
-        }
-
         data.id = ++idCounter;
         list.insertFront(data);
         nodes->notify_inserted(0);
     });
 
     app->on_insert_back([&](Data data) {
-        if (data.name == "" || data.message == ""){
-            //! Show a Error here too
-            return;
-        }
-
-        data.id == ++idCounter;
+        data.id = ++idCounter;
         list.insertBack(data);
         nodes->notify_inserted(list.size() - 1);
     });
 
     app->on_insert_at_pos([&](Data data, int pos) {
-        if (data.name == "" || data.message == ""){
-            //! Show A Error
-            return;
-        }
-
         data.id = ++idCounter;
         list.insertAtIndex(data, pos);
 
@@ -82,6 +67,21 @@ int main() {
             actualIndex = pos;
         }
         nodes->notify_inserted(actualIndex);
+    });
+
+    app->on_remove_front([&]() {
+        if (list.size() > 0) {
+            list.removeFront();
+            nodes->notify_removed(0);
+        }
+    });
+
+    app->on_remove_back([&]() {
+        if (list.size() > 0) {
+            size_t index_to_remove = list.size() - 1;
+            list.removeBack();
+            nodes->notify_removed(index_to_remove);
+        }
     });
 
     app->run();

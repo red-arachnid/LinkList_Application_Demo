@@ -107,6 +107,8 @@ export component AppWindow inherits Window {
     callback insert_front(Data);
     callback insert_back(Data);
     callback insert_at_pos(Data, int);
+    callback remove_front();
+    callback remove_back();
     
     //Main Box
     VerticalBox {
@@ -252,6 +254,7 @@ export component AppWindow inherits Window {
                             }
                         }
                     }
+
                     if (root.nodes.length > 0) : Rectangle{
                         Text {
                             text: "→NULL";
@@ -270,6 +273,10 @@ export component AppWindow inherits Window {
                 base-color: #ff3d3d;
                 hover-color: #ff2d2d;
                 click-color: #ff0000;
+
+                clicked => {
+                    remove_front();
+                }
             }
             CustomButton {
                 text: "Remove Node From End";
@@ -277,6 +284,10 @@ export component AppWindow inherits Window {
                 base-color: #ff3d3d;
                 hover-color: #ff2d2d;
                 click-color: #ff0000;
+
+                clicked => {
+                    remove_back();
+                }
             }
         }
 
