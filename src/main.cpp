@@ -23,13 +23,9 @@ class LinkListModel : public slint::Model<Data> {
     void notify_removed(size_t index) {
         this->notify_row_removed(index, 1);
     }
-    void notify_all_reset() {
-        this->notify_reset();
-    }
 };
 
 int main() {
-
     LinkList<Data> list;
     auto nodes = std::make_shared<LinkListModel>(list);
     int idCounter = 0;
@@ -52,18 +48,18 @@ int main() {
 
     app->on_insert_at_pos([&](Data data, int pos) {
         data.id = ++idCounter;
-        list.insertAtIndex(data, pos);
 
-        int actualIndex;
+        size_t actualIndex;
         if (pos <= 0) {
             actualIndex = 0;
         }
-        else if (pos >= list.size()){
-            actualIndex = list.size() - 1;
+        else if (static_cast<size_t>(pos) >= list.size()){
+            actualIndex = list.size();
         }
         else {
-            actualIndex = pos;
+            actualIndex = static_cast<size_t>(pos);
         }
+        list.insertAtIndex(data, actualIndex);
         nodes->notify_inserted(actualIndex);
     });
 
@@ -85,15 +81,15 @@ int main() {
     app->on_remove_from_pos([&](int pos) {
         list.removeFromPos(pos);
 
-        int actualIndex;
+        size_t actualIndex;
         if (pos <= 0) {
             actualIndex = 0;
         }
-        else if (pos >= list.size()){
+        else if (static_cast<size_t>(pos) >= list.size()){
             actualIndex = list.size() - 1;
         }
         else {
-            actualIndex = pos;
+            actualIndex = static_cast<size_t>(pos);
         }
         nodes->notify_removed(actualIndex);
     });

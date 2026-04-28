@@ -190,6 +190,7 @@ export component AppWindow inherits Window {
                         usernameField.text = "";
                         messageField.text = "";
                         insertOption.current-index = 0;
+                        insertPos = 0;
                     }
                 }
 
@@ -215,6 +216,7 @@ export component AppWindow inherits Window {
                         insertPosition := SpinBox {
                             value: 0;
                             minimum: 0;
+                            maximum: root.nodes.length;
 
                             edited(value) => {
                                 insertPos = value;

@@ -3,46 +3,45 @@
 
 template <typename T>
 class LinkList {
-    Node<T> *START, *END;
+    Node<T>* start;
+    Node<T>* end;
     size_t nodeCount;
 
 public:
-    LinkList() {
-        START = nullptr;
-        END = nullptr;
-        nodeCount = 0;
+    LinkList() : start(nullptr), end(nullptr), nodeCount(0) {}
+
+    ~LinkList() {
+        while(start != nullptr) {
+            removeFront();
+        }
     }
 
-    void insertFront(T data) {
-        Node<T> *temp = new Node<T>(data);
-        if (temp == nullptr){
-            throw std::runtime_error("Insufficient Memory");
-            return;
-        }
+    //DISABLE COPYING
+    LinkList(const LinkList&) = delete;
+    LinkList& operator = (const LinkList&) = delete;
 
-        if (START == nullptr){
-            END = START = temp;
+    void insertFront(T data) {
+        Node<T>* temp = new Node<T>(data);
+
+        if (start == nullptr){
+            end = start = temp;
         }
         else {
-            temp->next = START;
-            START = temp;
+            temp->next = start;
+            start = temp;
         }
         nodeCount++;
     }
     
     void insertBack(T data) {
-        Node<T> *temp = new Node<T>(data);
-        if (temp == nullptr){
-            throw std::runtime_error("Insufficient Memory");
-            return;
-        }
+        Node<T>* temp = new Node<T>(data);
 
-        if (START == nullptr){
-            END = START = temp;
+        if (start == nullptr){
+            end = start = temp;
         }
         else {
-            END->next = temp;
-            END = temp;
+            end->next = temp;
+            end = temp;
         }
         nodeCount++;
     }   
@@ -53,109 +52,94 @@ public:
             return;
         }
 
-        Node<T> *ptr = START;
+        Node<T> *ptr = start;
         int i = 0;
         while (ptr != nullptr && i < index-1){
             ptr = ptr->next;
             i++;
         }
 
-        if (ptr == nullptr || ptr == END){
+        if (ptr == nullptr || ptr == end){
             insertBack(data);
             return;
         }
 
-        Node<T> *temp = new Node<T>(data);
-        if (temp == nullptr) {
-            throw std::runtime_error("Insufficient Memory");
-            return;
-        }
+        Node<T>* temp = new Node<T>(data);
         temp->next = ptr->next;
         ptr->next = temp;
         nodeCount++;
     }
 
     void removeFront() {
-        Node<T> *temp = START;
-
-        if (temp == nullptr){
+        if (start == nullptr){
             throw std::runtime_error("Link List is empty");
-            return;
         }
 
-        START = START->next;
-        if (START == nullptr) {
-            END = nullptr;
+        Node<T>* temp = start;
+
+        start = start->next;
+        if (start == nullptr) {
+            end = nullptr;
         }
         delete temp;
         nodeCount--;
     }
 
     void removeBack() {
-        Node<T> *ptr = START;
-        if (ptr == nullptr) {
+        if (start == nullptr) {
             throw std::runtime_error("Link List is empty");
-            return;
         }
 
-        if (ptr == END){
-            START = END = nullptr;
-            delete(ptr);
-            nodeCount--;
-            return;
+        if (start == end) {
+            delete start;
+            start = end = nullptr;
         }
+        else {
+            Node<T>* ptr = start;
 
-        while (ptr->next != END){
-            ptr = ptr->next;
+            while (ptr->next != end){
+                ptr = ptr->next;
+            }
+            delete end;
+            end = ptr;
+            end->next = nullptr;
         }
-        END = ptr;
-        ptr = ptr->next;
-        END->next = nullptr;
-        delete ptr;
         nodeCount--;
     }
 
     void removeFromPos(size_t index) {
-        if (index <= 0) {
+        if (index == 0) {
             removeFront();
             return;
         }
 
-        Node<T> *ptr = START;
-        int i = 0;
-        while (ptr != nullptr && i < index-1){
-            ptr = ptr->next;
-            i++;
-        }
-
-        if (ptr == nullptr || ptr == END || ptr->next == END) {
+        if (index >= nodeCount - 1) {
             removeBack();
             return;
         }
 
-        Node<T> *temp = ptr->next;
+        Node<T>* ptr = start;
+        for (size_t i = 0; i < index - 1; i++) {
+            ptr = ptr->next;
+        }
+
+        Node<T>* temp = ptr->next;
         ptr->next = temp->next;
         delete temp;
         nodeCount--;
     }
 
-    size_t size(){
+    size_t size() const {
         return nodeCount;
     }
 
-    T get(size_t index) {
-        if (index > nodeCount) 
-            return END->data;
+    T get(size_t index) const {
+        if (index >= nodeCount) 
+            throw std::out_of_range("Index out of range");
 
-        if (index <= 0) 
-            return START->data;
-
-        Node<T> *ptr = START;
-        int i = 0;
-
-        while (ptr != nullptr && i < index) {
+        Node<T>* ptr = start;
+        for (size_t i = 0; i < index; i++) {
             ptr = ptr->next;
-            i++;
         }
         return ptr->data;
     }

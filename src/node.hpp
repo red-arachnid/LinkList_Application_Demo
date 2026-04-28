@@ -1,11 +1,9 @@
-template <typename T>
-class Node {
-public:
-    T data;
-    Node *next;
+#pragma once
 
-    Node(T val){
-        data = val;
-        next = nullptr;
-    }
+template <typename T>
+struct Node {
+    T data;
+    Node* next;
+
+    Node(T val) : data(val), next(nullptr) {}
 };
