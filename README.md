@@ -29,7 +29,7 @@ A modern, visual demonstration of the Linked List data structure. This project c
 ### Build & Run
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/LinkList_Application_Demo.git
+git clone https://github.com/red-arachnid/LinkList_Application_Demo.git
 cd LinkList_Application_Demo
 
 # 2. Create build directory
