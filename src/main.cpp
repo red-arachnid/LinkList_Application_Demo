@@ -79,7 +79,7 @@ int main() {
     });
 
     app->on_remove_from_pos([&](int pos) {
-        list.removeFromPos(pos);
+        list.removeFromIndex(pos);
 
         size_t actualIndex;
         if (pos <= 0) {

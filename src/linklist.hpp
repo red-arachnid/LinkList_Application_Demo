@@ -1,3 +1,4 @@
+#pragma once
 #include<stdexcept>
 #include"node.hpp"
 
@@ -52,16 +53,14 @@ public:
             return;
         }
 
-        Node<T> *ptr = start;
-        int i = 0;
-        while (ptr != nullptr && i < index-1){
-            ptr = ptr->next;
-            i++;
-        }
-
-        if (ptr == nullptr || ptr == end){
+        if (index >= nodeCount) {
             insertBack(data);
             return;
+        }
+
+        Node<T>* ptr = start;
+        for (size_t i = 0; i < index-1; i++) {
+            ptr = ptr->next;
         }
 
         Node<T>* temp = new Node<T>(data);
@@ -71,7 +70,7 @@ public:
     }
 
     void removeFront() {
-        if (start == nullptr){
+        if (start == nullptr) {
             throw std::runtime_error("Link List is empty");
         }
 
@@ -107,7 +106,7 @@ public:
         nodeCount--;
     }
 
-    void removeFromPos(size_t index) {
+    void removeFromIndex(size_t index) {
         if (index == 0) {
             removeFront();
             return;
