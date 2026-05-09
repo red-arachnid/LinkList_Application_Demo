@@ -1,8 +1,9 @@
 #include<stdexcept>
-#include "node.hpp"
+#include"node.hpp"
+#include"linklist.hpp"
 
 template <typename T>
-class DLinkList {
+class DLinkList : public LinkList<T> {
     DNode<T>* start;
     DNode<T>* end;
     size_t nodeCount;
@@ -20,7 +21,7 @@ public:
     DLinkList(const DLinkList&) = delete;
     DLinkList& operator = (const DLinkList&) = delete;
 
-    void insertFront(T data) {
+    void insertFront(T data) override {
         DNode<T>* temp = new DNode<T>(data);
 
         if (start == nullptr) {
@@ -34,7 +35,7 @@ public:
         nodeCount++;
     }
 
-    void insertBack(T data) {
+    void insertBack(T data) override {
         DNode<T>* temp = new DNode<T>(data);
 
         if (start == nullptr) {
@@ -48,7 +49,7 @@ public:
         nodeCount++;
     }
 
-    void insertAtIndex(T data, size_t index) {
+    void insertAtIndex(T data, size_t index) override {
         if (index <= 0) {
             insertFront(data);
             return;
@@ -87,7 +88,7 @@ public:
         nodeCount++;
     }
 
-    void removeFront() {
+    void removeFront() override {
         if (start == nullptr) {
             throw std::runtime_error("Link List is empty");
         }
@@ -105,7 +106,7 @@ public:
         nodeCount--;
     }
 
-    void removeBack() {
+    void removeBack() override {
         if (start == nullptr) {
             throw std::runtime_error("Link List is empty");
         }
@@ -123,7 +124,7 @@ public:
         nodeCount--;
     }
 
-    void removeFromIndex(size_t index) {
+    void removeFromIndex(size_t index) override {
         if (index == 0) {
             removeFront();
             return;
@@ -154,11 +155,11 @@ public:
         nodeCount--;
     }
 
-    size_t size() const {
+    size_t size() const override {
         return nodeCount;
     }
 
-    T get(size_t index) const {
+    T get(size_t index) const override {
         if (index >= nodeCount)
             throw std::out_of_range("Index out of range");
         

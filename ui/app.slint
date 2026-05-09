@@ -109,12 +109,13 @@ export component AppWindow inherits Window {
     property <int> insertPos;
     in property <[Data]> nodes;
 
+    callback list_type_change(int);
     callback insert_front(Data);
     callback insert_back(Data);
-    callback insert_at_pos(Data, int);
+    callback insert_at_index(Data, int);
     callback remove_front();
     callback remove_back();
-    callback remove_from_pos(int);
+    callback remove_from_index(int);
     
     //Main Box
     VerticalBox {
@@ -131,6 +132,25 @@ export component AppWindow inherits Window {
             horizontal-alignment: center;
         }
         
+        HorizontalBox {
+            Text {
+                text: "Select List Type: ";
+                vertical-alignment: center;
+            }
+
+            listType := ComboBox {
+                model: [
+                    "Singly Linked List",
+                    "Doubly Linked List"
+                ];
+                current-index: 0;
+                
+                selected(current-value) => {
+                    list_type_change(listType.current-index);
+                }
+            }
+        }
+
         //Insert Node Section
         Rectangle {
             background: white;
@@ -181,7 +201,7 @@ export component AppWindow inherits Window {
                             });
                         }
                         else if (insertOption.current-index == 2){
-                            insert_at_pos({
+                            insert_at_index({
                                 name: usernameField.text,
                                 message: messageField.text
                             }, insertPos);
@@ -253,7 +273,7 @@ export component AppWindow inherits Window {
                                 name: node.name;
                                 message: node.message;
                                 delete => {
-                                    remove_from_pos(i);
+                                    remove_from_index(i);
                                 }
                             }
                         }
