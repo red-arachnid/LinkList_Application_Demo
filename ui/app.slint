@@ -261,6 +261,14 @@ export component AppWindow inherits Window {
                     alignment: start;
                     spacing: 0;
 
+                    if (root.nodes.length > 0 && listType.current-index == 1) : Rectangle{
+                        Text {
+                            text: "NULL←";
+                            font-size: 20px;
+                            font-weight: 800;
+                        }
+                    }
+
                     for node[i] in root.nodes : HorizontalBox {
                         spacing: 0;
                         padding: 0;
@@ -278,6 +286,12 @@ export component AppWindow inherits Window {
                             }
                         }
                         if (i < root.nodes.length - 1) : Rectangle {
+                            if (listType.current-index == 1) : Text {
+                                text: "←";
+                                font-size: 20px;
+                                font-weight: 800;
+                            }
+                            
                             Text {
                                 text: "→";
                                 font-size: 20px;
