@@ -1,6 +1,7 @@
 #include<slint.h>
 #include"app.h"
 #include"linklist.hpp"
+#include"dlinklist.hpp"
 
 class LinkListModel : public slint::Model<Data> {
     LinkList<Data>& modelList;

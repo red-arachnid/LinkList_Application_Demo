@@ -13,4 +13,6 @@ struct DNode {
     DNode<T>* prev;
     T data;
     DNode<T>* next;
+
+    DNode(T val) : prev(nullptr), data(val), next(nullptr) {}
 };

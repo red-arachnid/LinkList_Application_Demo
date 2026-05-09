@@ -1,4 +1,3 @@
-#pragma once
 #include<stdexcept>
 #include "node.hpp"
 
@@ -13,7 +12,7 @@ public:
 
     ~DLinkList() {
         while (start != nullptr) {
-            
+            removeFront();
         }
     }
 
@@ -96,7 +95,10 @@ public:
         DNode<T>* temp = start;
 
         start = start->next;
-        if (start == nullptr) {
+        if (start != nullptr) {
+            start->prev = nullptr;
+        }
+        else {
             end = nullptr;
         }
         delete temp;
@@ -111,14 +113,17 @@ public:
         DNode<T>* temp = end;
 
         end = end->prev;
-        if (end == nullptr) {
+        if (end != nullptr) {
+            end->next = nullptr;
+        }
+        else {
             start = nullptr;
         }
         delete temp;
         nodeCount--;
     }
 
-    void removeFromPos(size_t index) {
+    void removeFromIndex(size_t index) {
         if (index == 0) {
             removeFront();
             return;
@@ -138,7 +143,7 @@ public:
         }
         else {
             ptr = end;
-            for (size_t i = nodeCount; i > index; i--) {
+            for (size_t i = nodeCount - 1; i > index; i--) {
                 ptr = ptr->prev;
             }
         }
@@ -167,11 +172,11 @@ public:
         }
         else {
             ptr = end;
-            for (size_t i = nodeCount; i > index; i--) {
+            for (size_t i = nodeCount - 1; i > index; i--) {
                 ptr = ptr->prev;
             }
         }
-        
+
         return ptr->data;
     }
 };
